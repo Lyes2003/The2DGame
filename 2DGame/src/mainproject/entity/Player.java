@@ -33,14 +33,30 @@ public class Player extends Entity{
     public void getPlayerImage() {
 
         try {
-            haut1 = ImageIO.read(getClass().getResourceAsStream(null));
-            haut2 = ImageIO.read(getClass().getResourceAsStream(null));
-            bas1  = ImageIO.read(getClass().getResourceAsStream(null));
-            bas2  = ImageIO.read(getClass().getResourceAsStream(null));
-            gauche1 = ImageIO.read(getClass().getResourceAsStream(null));
-            gauche2 = ImageIO.read(getClass().getResourceAsStream(null));
-            droite1 = ImageIO.read(getClass().getResourceAsStream(null));
-            droite2 = ImageIO.read(getClass().getResourceAsStream(null));
+            haut1 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-1.png"));
+            haut2 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-2.png"));
+            haut3 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-3.png"));
+            haut4 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-4.png"));
+            haut5 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-5.png"));
+            haut6 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-6.png"));
+            bas1  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-1.png"));
+            bas2  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-2.png"));
+            bas3  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-3.png"));
+            bas4  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-4.png"));
+            bas5  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-5.png"));
+            bas6  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-6.png"));
+            gauche1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1.png"));
+            gauche2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2.png"));
+            gauche3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3.png"));
+            gauche4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4.png"));
+            gauche5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5.png"));
+            gauche6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6.png"));
+            droite1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1-droite.png"));
+            droite2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2-droite.png"));
+            droite3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3-droite.png"));
+            droite4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4-droite.png"));
+            droite5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5-droite.png"));
+            droite6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6-droite.png"));
 
         }catch(IOException e) {
             e.printStackTrace();
@@ -78,19 +94,27 @@ public class Player extends Entity{
                     spriteNum = 2;
                 }
                 else if (spriteNum == 2) {
+                    spriteNum = 3;
+                }else if (spriteNum == 3) {
+                    spriteNum = 4;
+                }else if (spriteNum == 4) {
+                    spriteNum = 5;
+                }else if (spriteNum == 5) {
+                    spriteNum = 6;
+                }else if (spriteNum == 6) {
                     spriteNum = 1;
                 }
 
                 spriteCounter = 0;
-        }
+            }
 
 
         }
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.white);
-        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+        //.setColor(Color.white);
+        // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
 
@@ -103,6 +127,18 @@ public class Player extends Entity{
                 if(spriteNum == 2) {
                     image = haut2;
                 }
+                if(spriteNum == 3) {
+                    image = haut3;
+                }
+                if(spriteNum == 4) {
+                    image = haut4;
+                }
+                if(spriteNum == 5) {
+                    image = haut5;
+                }
+                if(spriteNum == 6) {
+                    image = haut6;
+                }
                 break;
             case "bas":
                 if(spriteNum == 1) {
@@ -110,6 +146,18 @@ public class Player extends Entity{
                 }
                 if(spriteNum == 2) {
                     image = bas2;
+                }
+                if(spriteNum == 3) {
+                    image = bas3;
+                }
+                if(spriteNum == 4) {
+                    image = bas4;
+                }
+                if(spriteNum == 5) {
+                    image = bas5;
+                }
+                if(spriteNum == 6) {
+                    image = bas6;
                 }
                 break;
             case "gauche":
@@ -119,6 +167,18 @@ public class Player extends Entity{
                 if(spriteNum == 2) {
                     image = gauche2;
                 }
+                if(spriteNum == 3) {
+                    image = gauche3;
+                }
+                if(spriteNum == 4) {
+                    image = gauche4;
+                }
+                if(spriteNum == 5) {
+                    image = gauche5;
+                }
+                if(spriteNum == 6) {
+                    image = gauche6;
+                }
                 break;
             case "droite":
                 if(spriteNum == 1) {
@@ -126,6 +186,18 @@ public class Player extends Entity{
                 }
                 if(spriteNum == 2) {
                     image = droite2;
+                }
+                if(spriteNum == 3) {
+                    image = droite3;
+                }
+                if(spriteNum == 4) {
+                    image = droite4;
+                }
+                if(spriteNum == 5) {
+                    image = droite5;
+                }
+                if(spriteNum == 6) {
+                    image = droite6;
                 }
                 break;
         }
