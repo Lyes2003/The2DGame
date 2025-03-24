@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     public boolean haut, bas, gauche, droite;
+    public boolean enterPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -22,6 +23,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_S) bas = true;
         if (code == KeyEvent.VK_A) gauche = true;
         if (code == KeyEvent.VK_D) droite = true;
+        if (code == KeyEvent.VK_ENTER || code ==KeyEvent.VK_SPACE)enterPressed=true;
+
     }
 
     // 6.2. Relâcher une touche
