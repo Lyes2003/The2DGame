@@ -1,31 +1,61 @@
 package mainproject.tile;
 
 import mainproject.GamePanel;
-import mainproject.utils.TileSetLoader;
+
+import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 
 public class TileManager {
-    private GamePanel gp;
-    private Tile[] tileTypes; // Liste des types de tuiles (sol, mer, buisson, etc.)
-    private int[][] mapTileNum; // Tableau 2D pour la map
+    public BufferedImage[] tabtemp; // tableau temporaire
+
+    public GamePanel gp;
+    public Tile[] tileTypes; // Liste des types de tuiles (sol, mer, buisson, etc.)
+    public int[][] mapTileNum; // Tableau 2D pour la map
 
     public TileManager(GamePanel gp) {
-        this.gp = gp;
 
-        // Charger les ressources (images) depuis TilesetLoader
-        TileSetLoader.TileResources resources = new TileSetLoader.TileResources();
+            this.gp = gp;
+            tabtemp = new BufferedImage[4]; // Par exemple, 4 éléments si tu charges 4 images
+            getTileImage(tabtemp);
+            tileTypes = new Tile[10];
+            tileTypes[0] = new Tile(tabtemp[3]); // Sol vert
+            tileTypes[1] = new Tile(tabtemp[1]); // Mer
+            tileTypes[2] = new Tile(tabtemp[0], true); // Buisson (avec collision)
+            tileTypes[3] = new Tile(tabtemp[2]); // Petit espace jaune
 
-        // Définir les types de tuiles
-        tileTypes = new Tile[10]; // 10 types de tuiles max (tu peux augmenter si besoin)
-        tileTypes[0] = new Tile(resources.solVert); // Sol vert
-        tileTypes[1] = new Tile(resources.merTiles[0]); // Mer (première tuile de mer2x4)
-        tileTypes[2] = new Tile(resources.buisson, true); // Buisson (avec collision)
-        tileTypes[3] = new Tile(resources.petiteEspaceJaune); // Petit espace jaune
+            mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
+            loadMap();
+        }
 
-        // Définir la map (16 colonnes x 12 lignes pour correspondre à l'écran)
-        mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
-        loadMap();
+
+
+    // Charger les ressources (images) depuis TilesetLoader
+
+    public void getTileImage(BufferedImage[] tab) {
+        try {
+            tab[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/buisson.png"));
+            System.out.println("Le buisson a été importé avec succès ! [ 1/4 ]");
+            tab[1] = ImageIO.read(getClass().getResourceAsStream("/tiles/mer2x4.png"));
+            System.out.println("Mer importé avec succès ! [ 2/4 ]");
+            tab[2] = ImageIO.read(getClass().getResourceAsStream("/tiles/petite_espace_jaune.png"));
+            System.out.println("Mer importé avec succès ! [ 3/4 ]");
+            tab[3] = ImageIO.read(getClass().getResourceAsStream("/tiles/sol_vert.png"));
+            System.out.println("Mer importé avec succès ! [ 4/4 ]");
+            System.out.println("Image Tiles chargé avec succès ");
+            System.out.println("***************** Chargement réussi *****************");
+
+        } catch (IOException e) {
+            System.out.println("Une image n'as pas été chargé ");
+            e.printStackTrace();
+
+        }
     }
+
+    // création du tableau des images :
+
 
     private void loadMap() {
         // Exemple de map : 0 = sol vert, 1 = mer, 2 = buisson, 3 = petit espace jaune
@@ -41,7 +71,7 @@ public class TileManager {
                 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 9
                 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 10
                 {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // Ligne 11
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}  // Ligne 12
+                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}// Ligne 12
         };
     }
 
