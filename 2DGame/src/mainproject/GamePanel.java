@@ -1,6 +1,7 @@
 package mainproject;
 
 import mainproject.entity.Player;
+import mainproject.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +19,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     int fps = 60; // Frames par seconde
+    TileManager tileManager= new TileManager(this);
 
     // 2. BOUCLE DE JEU
     Thread gameThread;
     KeyHandler keyH = new KeyHandler(); // Gestionnaire des entrées clavier
     Player player = new Player(this, keyH); // Joueur du jeu
+    // initialisation de la map
 
 
     // 3. Constructeur
@@ -80,6 +83,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // Dessiner la map (avant le joueur pour qu'il apparaisse au-dessus)
+
+
+        // Dessiner le joueur
+        tileManager.draw(g2);
 
         player.draw(g2);
 
