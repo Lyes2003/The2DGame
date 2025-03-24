@@ -1,7 +1,7 @@
 package mainproject.tile;
 
 import mainproject.GamePanel;
-import mainproject.utils.TilesetLoader;
+import mainproject.utils.TileSetLoader;
 import java.awt.Graphics2D;
 
 public class TileManager {
@@ -13,7 +13,7 @@ public class TileManager {
         this.gp = gp;
 
         // Charger les ressources (images) depuis TilesetLoader
-        TilesetLoader.TileResources resources = new TilesetLoader.TileResources();
+        TileSetLoader.TileResources resources = new TileSetLoader.TileResources();
 
         // Définir les types de tuiles
         tileTypes = new Tile[10]; // 10 types de tuiles max (tu peux augmenter si besoin)
