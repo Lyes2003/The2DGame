@@ -50,11 +50,16 @@ public class GamePanel extends JPanel implements Runnable {
             }
         });
 
-        // Ajouter un MouseMotionListener pour gérer le glisser-déposer
+        // Ajouter un MouseMotionListener pour gérer le glisser-déposer et le survol
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 ui.handleMouseDragged(e.getX(), e.getY());
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                ui.handleMouseMoved(e.getX(), e.getY());
             }
         });
     }
