@@ -396,7 +396,7 @@ public class ui {
             backgroundMountains = ImageIO.read(getClass().getResourceAsStream("/tiles/mountains.png"));
 
             // Charge l'image du sol depuis /tiles/sol_vert.png.
-            backgroundGround = ImageIO.read(getClass().getResourceAsStream("/tiles/sol_vert.png"));
+            backgroundGround = ImageIO.read(getClass().getResourceAsStream("/tiles/herbe-motif-1.png"));
 
             // Confirme que les images de fond ont été chargées avec succès.
             System.out.println("Fonds d'écran chargés avec succès");
