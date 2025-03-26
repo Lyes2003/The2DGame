@@ -23,13 +23,19 @@ public class Player extends Entity{
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
+        hitbox = new Rectangle();
+        hitbox.x = 8;
+        hitbox.y = 16;
+        hitbox.width = 16;
+        hitbox.height = 16;
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
         worldx = gp.tileSize * 23;
-        wordly = gp.tileSize * 21;
+        worldy = gp.tileSize * 21;
         speed = 4;
         direction = "bas";
     }
@@ -74,24 +80,42 @@ public class Player extends Entity{
             if (keyH.haut) {
 
                 direction = "haut";
-                wordly -= speed;
             }
             else if (keyH.bas) {
 
                 direction = "bas";
-                wordly += speed;
             }
             else if (keyH.gauche) {
 
                 direction = "gauche";
-                worldx -= speed;
             }
             else if (keyH.droite) {
 
                 direction = "droite";
-                worldx += speed;
             }
 
+            //CHECK TILE COLLISION
+            collisionOn = false;
+            gp.collisionChecker.checkTile(this);
+
+            // IF COLLISION IS FALSE ,PLAYER CAN MOVE
+            if(collisionOn == false) {
+
+                switch(direction) {
+                    case "haut":
+                        worldy -= speed;
+                        break;
+                    case "bas":
+                        worldy += speed;
+                        break;
+                    case "gauche":
+                        worldx -= speed;
+                        break;
+                    case "droite":
+                        worldx += speed;
+                        break;
+                }
+            }
             spriteCounter++;
             if(spriteCounter >= 12) {
                 if(spriteNum == 1) {
