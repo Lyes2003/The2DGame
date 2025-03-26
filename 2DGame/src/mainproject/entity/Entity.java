@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
 
-    public int x, y;
+    public int worldx, wordly;
     public int speed;
 
     public BufferedImage haut1, haut2, haut3, haut4, haut5, haut6, bas1, bas2, bas3, bas4, bas5, bas6, gauche1, gauche2, gauche3, gauche4, gauche5, gauche6,
