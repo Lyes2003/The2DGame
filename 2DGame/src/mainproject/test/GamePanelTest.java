@@ -42,9 +42,9 @@ public class GamePanelTest {
     // Ces méthodes testent chaque fonctionnalité clé de la classe GamePanel.
 
     /**
-     * ╔══════════════════════╗
-     * ║    TEST : Initialization  ║
-     * ╚══════════════════════╝
+     * ╔═══════════════════════╗
+     * ║TEST : Initialization  ║
+     * ╚═══════════════════════╝
      * Teste l'initialisation des dimensions et des constantes de GamePanel.
      * Vérifie que screenWidth, screenHeight, tileSize, et les états sont correctement définis.
      */
