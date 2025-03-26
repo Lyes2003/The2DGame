@@ -12,20 +12,24 @@ public class Player extends Entity{
     GamePanel gp;
     KeyHandler keyH;
 
-    public int x, y;        // Position du joueur
-    public int speed;       // Vitesse du joueur
+    public final int screenX; // indique ou dessiné le joueur sur l'axe des X
+    public final int screenY; // indique ou dessiné le joueur sur l'axe des y
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        screenX = gp.screenWidth / 2 - gp.tileSize / 2;
+        screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldx = gp.tileSize * 23;
+        wordly = gp.tileSize * 21;
         speed = 4;
         direction = "bas";
     }
@@ -70,22 +74,22 @@ public class Player extends Entity{
             if (keyH.haut) {
 
                 direction = "haut";
-                y -= speed;
+                wordly -= speed;
             }
             else if (keyH.bas) {
 
                 direction = "bas";
-                y += speed;
+                wordly += speed;
             }
             else if (keyH.gauche) {
 
                 direction = "gauche";
-                x -= speed;
+                worldx -= speed;
             }
             else if (keyH.droite) {
 
                 direction = "droite";
-                x += speed;
+                worldx += speed;
             }
 
             spriteCounter++;
@@ -202,6 +206,6 @@ public class Player extends Entity{
                 break;
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
