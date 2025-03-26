@@ -5,45 +5,74 @@ import mainproject.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 public class TileManager {
-    public BufferedImage[] tabtemp; // tableau temporaire
 
     public GamePanel gp;
     public Tile[] tileTypes; // Liste des types de tuiles (sol, mer, buisson, etc.)
-    public int[][] mapTileNum; // Tableau 2D pour la map
+    public int mapTileNum [] []; // Tableau 2D pour la map
 
     public TileManager(GamePanel gp) {
 
             this.gp = gp;
-            tabtemp = new BufferedImage[4]; // Par exemple, 4 éléments si tu charges 4 images
-            getTileImage(tabtemp);
-            tileTypes = new Tile[10];
-            tileTypes[0] = new Tile(tabtemp[3]); // Sol vert
-            tileTypes[1] = new Tile(tabtemp[1]); // Mer
-            tileTypes[2] = new Tile(tabtemp[0], true); // Buisson (avec collision)
-            tileTypes[3] = new Tile(tabtemp[2]); // Petit espace jaune
+            tileTypes = new Tile[20];
+            mapTileNum = new int [gp.maxWorldCol] [gp.maxWorldRow];
 
-            mapTileNum = new int[gp.maxScreenRow][gp.maxScreenCol];
-            loadMap();
+            getTileImage();
+            loadMap("/maps/test3.txt");
         }
 
 
 
     // Charger les ressources (images) depuis TilesetLoader
 
-    public void getTileImage(BufferedImage[] tab) {
+    public void getTileImage() {
         try {
-            tab[0] = ImageIO.read(getClass().getResourceAsStream("/tiles/buisson.png"));
-            System.out.println("Le buisson a été importé avec succès ! [ 1/4 ]");
-            tab[1] = ImageIO.read(getClass().getResourceAsStream("/tiles/mer2x4.png"));
-            System.out.println("Mer importé avec succès ! [ 2/4 ]");
-            tab[2] = ImageIO.read(getClass().getResourceAsStream("/tiles/petite_espace_jaune.png"));
-            System.out.println("Mer importé avec succès ! [ 3/4 ]");
-            tab[3] = ImageIO.read(getClass().getResourceAsStream("/tiles/sol_vert.png"));
-            System.out.println("Mer importé avec succès ! [ 4/4 ]");
+
+            tileTypes[0] = new Tile();
+            tileTypes[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/herbe-motif-1.png"));
+            System.out.println("L'herbe a été importé avec succès ! ");
+
+            tileTypes[1] = new Tile();
+            tileTypes[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/herbe-motif-2.png"));
+            System.out.println("L'herbe a été importé avec succès ! ");
+
+            tileTypes[2] = new Tile();
+            tileTypes[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/mere-1.png"));
+            System.out.println("Mer importé avec succès ! ");
+
+            tileTypes[3] = new Tile();
+            tileTypes[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/mere-2.png"));
+            System.out.println("Mer importé avec succès !");
+
+            tileTypes[4] = new Tile();
+            tileTypes[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/petite_espace_jaune.png"));
+            System.out.println("Espace jaune importé avec succès ! ");
+
+            tileTypes[5] = new Tile();
+            tileTypes[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/buisson.png"));
+            System.out.println("Buisson importé avec succès ! ");
+
+            tileTypes[6] = new Tile();
+            tileTypes[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/terre.png"));
+
+            tileTypes[7] = new Tile();
+            tileTypes[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/plante-type-1.png"));
+
+            tileTypes[8] = new Tile();
+            tileTypes[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/plante-type-2.png"));
+
+            tileTypes[9] = new Tile();
+            tileTypes[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/plante-type-3.png"));
+
+            tileTypes[10] = new Tile();
+            tileTypes[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/petit-buisson.png"));
+
             System.out.println("Image Tiles chargé avec succès ");
             System.out.println("***************** Chargement réussi *****************");
 
@@ -54,35 +83,74 @@ public class TileManager {
         }
     }
 
-    // création du tableau des images :
+    public void loadMap(String mapFileLocation){
 
+        try{
+            InputStream is = getClass().getResourceAsStream(mapFileLocation);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-    private void loadMap() {
-        // Exemple de map : 0 = sol vert, 1 = mer, 2 = buisson, 3 = petit espace jaune
-        mapTileNum = new int[][]{
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // Ligne 1
-                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // Ligne 2
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 3
-                {0, 1, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 4
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 5
-                {0, 1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 6
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 7
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 8
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 9
-                {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0}, // Ligne 10
-                {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}, // Ligne 11
-                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}// Ligne 12
-        };
+            int col = 0;
+            int row = 0;
+
+            while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
+
+                String line = br.readLine();
+
+                while(col < gp.maxWorldCol){
+
+                    String numbers[] = line.split(" ");
+
+                    int num = Integer.parseInt(numbers[col]);
+
+                    mapTileNum[col][row] = num;
+                    col++;
+                }
+
+                if (col == gp.maxWorldCol) {
+                    col = 0;
+                    row++;
+                }
+            }
+            br.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
+
+
+
+
     public void draw(Graphics2D g2) {
-        // Dessiner la map
-        for (int y = 0; y < mapTileNum.length; y++) {
-            for (int x = 0; x < mapTileNum[y].length; x++) {
-                int tileId = mapTileNum[y][x];
-                if (tileTypes[tileId] != null) {
-                    g2.drawImage(tileTypes[tileId].image, x * gp.tileSize, y * gp.tileSize, gp.tileSize, gp.tileSize, null);
-                }
+        int worldCol = 0;
+        int worldRow = 0;
+
+
+        while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+
+            int titeNum = mapTileNum[worldCol][worldRow];
+
+            int worldX = worldCol * gp.tileSize;
+            int worldY = worldRow * gp.tileSize;
+            int screenX = worldX - gp.player.worldx + gp.player.screenX;
+            int screenY = worldY - gp.player.wordly + gp.player.screenY;
+
+            if(worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
+                    worldX - gp.tileSize < gp.player.worldx + gp.player.screenX &&
+                    worldY + gp.tileSize> gp.player.wordly - gp.player.screenY &&
+                    worldY - gp.tileSize < gp.player.wordly + gp.player.screenY){
+
+                g2.drawImage(tileTypes[titeNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+
+            }
+
+
+            worldCol++;
+
+            if(worldCol == gp.maxWorldCol) {
+                worldCol = 0;
+                worldRow++;
             }
         }
     }
