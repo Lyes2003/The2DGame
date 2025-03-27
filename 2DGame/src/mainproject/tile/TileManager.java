@@ -15,16 +15,16 @@ public class TileManager {
 
     public GamePanel gp;
     public Tile[] tileTypes; // Liste des types de tuiles (sol, mer, buisson, etc.)
-    public int mapTileNum [] []; // Tableau 2D pour la map
+    public int[][][] mapTileNum; // Tableau 3D pour stocker plusieurs couches
 
     public TileManager(GamePanel gp) {
 
             this.gp = gp;
             tileTypes = new Tile[20];
-            mapTileNum = new int [gp.maxWorldCol] [gp.maxWorldRow];
+        mapTileNum = new int[3][gp.maxWorldCol][gp.maxWorldRow]; // 3 couches (sol, décor, objets en hauteur)
 
             getTileImage();
-            loadMap("/maps/test5.txt");
+            loadMap("/maps/test6.txt");
         }
 
 
@@ -53,8 +53,8 @@ public class TileManager {
             System.out.println("Mer importé avec succès !");
 
             tileTypes[4] = new Tile();
-            tileTypes[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
-            tileTypes[4].collision = true;
+            tileTypes[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/plante-type-1.png"));
+            tileTypes[4].collision = false;
             System.out.println("Espace jaune importé avec succès ! ");
 
             tileTypes[5] = new Tile();
@@ -95,26 +95,13 @@ public class TileManager {
             InputStream is = getClass().getResourceAsStream(mapFileLocation);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            int col = 0;
-            int row = 0;
-
-            while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-
-                String line = br.readLine();
-
-                while(col < gp.maxWorldCol){
-
-                    String numbers[] = line.split(" ");
-
-                    int num = Integer.parseInt(numbers[col]);
-
-                    mapTileNum[col][row] = num;
-                    col++;
-                }
-
-                if (col == gp.maxWorldCol) {
-                    col = 0;
-                    row++;
+            for (int layer = 0; layer < 3; layer++) {
+                for (int row = 0; row < gp.maxWorldRow; row++) {
+                    String line = br.readLine();
+                    String[] numbers = line.split(" ");
+                    for (int col = 0; col < gp.maxWorldCol; col++) {
+                        mapTileNum[layer][col][row] = Integer.parseInt(numbers[col]);
+                    }
                 }
             }
             br.close();
@@ -128,33 +115,28 @@ public class TileManager {
 
 
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, int layer) {
         int worldCol = 0;
         int worldRow = 0;
 
-
-        while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-
-            int titeNum = mapTileNum[worldCol][worldRow];
-
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
+            int tileNum = mapTileNum[layer][worldCol][worldRow];
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
             int screenX = worldX - gp.player.worldx + gp.player.screenX;
             int screenY = worldY - gp.player.worldy + gp.player.screenY;
 
-            if(worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
+            if (worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
                     worldX - gp.tileSize < gp.player.worldx + gp.player.screenX &&
-                    worldY + gp.tileSize> gp.player.worldy - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.worldy + gp.player.screenY){
-
-                g2.drawImage(tileTypes[titeNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-
+                    worldY + gp.tileSize > gp.player.worldy - gp.player.screenY &&
+                    worldY - gp.tileSize < gp.player.worldy + gp.player.screenY) {
+                if (tileNum >= 0) {
+                    g2.drawImage(tileTypes[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                }
             }
 
-
             worldCol++;
-
-            if(worldCol == gp.maxWorldCol) {
+            if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
             }
