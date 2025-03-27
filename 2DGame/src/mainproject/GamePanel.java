@@ -127,8 +127,12 @@ public class GamePanel extends JPanel implements Runnable {
         if (Game_state == Start_screen || Game_state == settings_screen) {
             ui.draw(g2);
         } else {
-            tileManager.draw(g2);
-            player.draw(g2);
+            tileManager.draw(g2, 0); // sol
+            tileManager.draw(g2, 1); // objets au sol (optionnel)
+            player.draw(g2);         // joueur
+            tileManager.draw(g2, 2); // objets au-dessus (arbres)
+
+
 
         }
 
