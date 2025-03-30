@@ -2,35 +2,55 @@ package mainproject;
 
 import mainproject.entity.Entity;
 
+/**
+ * Cette classe permet de vérifier si une entité (comme le joueur)
+ * entre en collision avec des tuiles de la carte.
+ * Elle prend en charge plusieurs couches de tuiles (ex: sol et objets hauts).
+ */
 public class CollisionChecker {
 
     GamePanel gp;
 
+    /**
+     * Constructeur du gestionnaire de collisions.
+     * @param gp instance de GamePanel contenant les informations de la carte et du joueur.
+     */
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
 
+    /**
+     * Vérifie si l'entité est en collision avec une tuile sur la carte,
+     * selon sa direction actuelle et sa vitesse.
+     * La détection se fait sur les couches 0 (sol) et 2 (éléments hauts comme les arbres).
+     * Si une tuile collisionnable est détectée, le flag collisionOn est activé.
+     *
+     * @param entity l'entité a vérifié (par exemple, le joueur).
+     */
     public void checkTile(Entity entity) {
 
+        // Coordonnées de la hitbox de l'entité dans le monde
         int entityLeftWorldX = entity.worldx + entity.hitbox.x;
         int entityRightWorldX = entity.worldx + entity.hitbox.x + entity.hitbox.width;
         int entityTopWorldY = entity.worldy + entity.hitbox.y;
         int entityBottomWorldY = entity.worldy + entity.hitbox.y + entity.hitbox.height;
 
-        int tileNum1, tileNum2;
 
+        // Vérification selon la direction de déplacement
         switch (entity.direction) {
             case "haut": {
                 int leftCol = entityLeftWorldX / gp.tileSize;
                 int rightCol = entityRightWorldX / gp.tileSize;
                 int topRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+
+                // Vérifie si les coordonnées sont dans les limites
                 if (isInBounds(leftCol, topRow) && isInBounds(rightCol, topRow)) {
-                    for (int layer : new int[]{0, 2}) {
-                        tileNum1 = gp.tileManager.mapTileNum[layer][leftCol][topRow];
-                        tileNum2 = gp.tileManager.mapTileNum[layer][rightCol][topRow];
-                        if ((tileNum1 >= 0 && gp.tileManager.tileTypes[tileNum1].collision) ||
-                                (tileNum2 >= 0 && gp.tileManager.tileTypes[tileNum2].collision)) {
+                    for (int layer : new int[]{0, 2}) { // 0 = sol, 2 = arbres ou murs hauts
+
+                        // Vérifie s'il y a collision sur la gauche ou la droite
+                        if (checkCollision(layer, leftCol, topRow) || checkCollision(layer, rightCol, topRow)) {
                             entity.collisionOn = true;
+                            break; // inutile de continuer si une collision est détectée
                         }
 
                     }
@@ -41,14 +61,15 @@ public class CollisionChecker {
                 int leftCol = entityLeftWorldX / gp.tileSize;
                 int rightCol = entityRightWorldX / gp.tileSize;
                 int bottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+
                 if (isInBounds(leftCol, bottomRow) && isInBounds(rightCol, bottomRow)) {
                     for (int layer : new int[]{0, 2}) {
-                        tileNum1 = gp.tileManager.mapTileNum[layer][leftCol][bottomRow];
-                        tileNum2 = gp.tileManager.mapTileNum[layer][rightCol][bottomRow];
-                        if ((tileNum1 >= 0 && gp.tileManager.tileTypes[tileNum1].collision) ||
-                                (tileNum2 >= 0 && gp.tileManager.tileTypes[tileNum2].collision)) {
+
+                        if (checkCollision(layer, leftCol, bottomRow) || checkCollision(layer, rightCol, bottomRow)) {
                             entity.collisionOn = true;
+                            break;
                         }
+
 
                     }
                 }
@@ -58,15 +79,14 @@ public class CollisionChecker {
                 int topRow = entityTopWorldY / gp.tileSize;
                 int bottomRow = entityBottomWorldY / gp.tileSize;
                 int leftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+
                 if (isInBounds(leftCol, topRow) && isInBounds(leftCol, bottomRow)) {
                     for (int layer : new int[]{0, 2}) {
-                        tileNum1 = gp.tileManager.mapTileNum[layer][leftCol][topRow];
-                        tileNum2 = gp.tileManager.mapTileNum[layer][leftCol][bottomRow];
-                        if ((tileNum1 >= 0 && gp.tileManager.tileTypes[tileNum1].collision) ||
-                                (tileNum2 >= 0 && gp.tileManager.tileTypes[tileNum2].collision)) {
-                            entity.collisionOn = true;
-                        }
 
+                        if (checkCollision(layer, leftCol, topRow) || checkCollision(layer, leftCol, bottomRow)) {
+                            entity.collisionOn = true;
+                            break;
+                        }
                     }
                 }
                 break;
@@ -75,14 +95,15 @@ public class CollisionChecker {
                 int topRow = entityTopWorldY / gp.tileSize;
                 int bottomRow = entityBottomWorldY / gp.tileSize;
                 int rightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+
                 if (isInBounds(rightCol, topRow) && isInBounds(rightCol, bottomRow)) {
                     for (int layer : new int[]{0, 2}) {
-                        tileNum1 = gp.tileManager.mapTileNum[layer][rightCol][topRow];
-                        tileNum2 = gp.tileManager.mapTileNum[layer][rightCol][bottomRow];
-                        if ((tileNum1 >= 0 && gp.tileManager.tileTypes[tileNum1].collision) ||
-                                (tileNum2 >= 0 && gp.tileManager.tileTypes[tileNum2].collision)) {
+
+                        if (checkCollision(layer, rightCol, topRow) || checkCollision(layer, rightCol, bottomRow)) {
                             entity.collisionOn = true;
+                            break;
                         }
+
 
                     }
                 }
@@ -91,7 +112,28 @@ public class CollisionChecker {
         }
     }
 
+    /**
+     * Vérifie si les coordonnées de colonne et ligne sont à l'intérieur des limites de la carte.
+     * @param col colonne à vérifier
+     * @param row ligne à vérifier
+     * @return true si les coordonnées sont valides, sinon false
+     */
     private boolean isInBounds(int col, int row) {
         return col >= 0 && col < gp.maxWorldCol && row >= 0 && row < gp.maxWorldRow;
     }
+
+    /**
+     * Vérifie si une tuile spécifique est collisionnable.
+     * Elle ignore les tuiles avec un index négatif (-1).
+     *
+     * @param layer couche sur laquelle se trouve la tuile (0 = sol, 2 = objets hauts, etc.)
+     * @param col colonne de la tuile
+     * @param row ligne de la tuile
+     * @return true si la tuile bloque le passage, false sinon
+     */
+    private boolean checkCollision(int layer, int col, int row) {
+        int tileNum = gp.tileManager.mapTileNum[layer][col][row];
+        return tileNum >= 0 && gp.tileManager.tileTypes[tileNum].collision;
+    }
+
 }
