@@ -10,27 +10,45 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
+/**
+ * Gère toutes les tuiles du jeu :
+ * - Chargement des images
+ * - Chargement de la carte depuis un fichier texte
+ * - Dessin des tuiles à l’écran (avec scrolling caméra)
+ */
 public class TileManager {
 
     public GamePanel gp;
-    public Tile[] tileTypes; // Liste des types de tuiles (sol, mer, buisson, etc.)
-    public int[][][] mapTileNum; // Tableau 3D pour stocker plusieurs couches
 
+    /** Tableau contenant tous les types de tuiles disponibles (grass, wall, etc.) */
+    public Tile[] tileTypes;
+
+    /**
+     * Carte du monde (3D) (il y a trois couches de tuiles) :
+     * [layer][colonne][ligne]
+     * Permet d’avoir plusieurs couches superposées (sol, décor, objets hauts...).
+     */
+    public int[][][] mapTileNum;
+
+    /**
+     * Constructeur : initialise les tuiles et charge la carte.
+     * @param gp Panneau de jeu principal
+     */
     public TileManager(GamePanel gp) {
 
             this.gp = gp;
             tileTypes = new Tile[20];
         mapTileNum = new int[3][gp.maxWorldCol][gp.maxWorldRow]; // 3 couches (sol, décor, objets en hauteur)
 
-            getTileImage();
-            loadMap("/maps/test6.txt");
+            getTileImage(); // charge les images de chaque tuile
+
+            loadMap("/maps/test6.txt"); // charge la carte
         }
 
-
-
-    // Charger les ressources (images) depuis TilesetLoader
-
+    /**
+     * Charge les images des différentes tuiles dans le tableau tileTypes[].
+     * Chaque image est liée à un fichier .png dans le dossier /tiles/.
+     */
     public void getTileImage() {
         try {
 
@@ -89,6 +107,12 @@ public class TileManager {
         }
     }
 
+    /**
+     * Lit un fichier texte représentant la carte (plusieurs couches).
+     * Chaque ligne du fichier contient des numéros de tuiles séparés par des espaces.
+     *
+     * @param mapFileLocation chemin vers le fichier de la carte (dans /resources)
+     */
     public void loadMap(String mapFileLocation){
 
         try{
@@ -111,21 +135,27 @@ public class TileManager {
         }
     }
 
-
-
-
-
+    /**
+     * Dessine toutes les tuiles visibles à l'écran pour une couche donnée.
+     * Utilise les coordonnées du joueur pour centrer la caméra.
+     *
+     * @param g2 contexte graphique
+     * @param layer couche à dessiner (0 = sol, 1 = décor, 2 = éléments au-dessus du joueur)
+     */
     public void draw(Graphics2D g2, int layer) {
         int worldCol = 0;
         int worldRow = 0;
 
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
             int tileNum = mapTileNum[layer][worldCol][worldRow];
+
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
+
             int screenX = worldX - gp.player.worldx + gp.player.screenX;
             int screenY = worldY - gp.player.worldy + gp.player.screenY;
 
+            // Dessiner uniquement les tuiles visibles dans l'écran
             if (worldX + gp.tileSize > gp.player.worldx - gp.player.screenX &&
                     worldX - gp.tileSize < gp.player.worldx + gp.player.screenX &&
                     worldY + gp.tileSize > gp.player.worldy - gp.player.screenY &&

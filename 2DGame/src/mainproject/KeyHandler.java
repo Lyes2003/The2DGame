@@ -3,18 +3,25 @@ package mainproject;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Classe qui gère les entrées clavier du joueur.
+ * Met à jour des flags booléens selon les touches pressées.
+ */
 public class KeyHandler implements KeyListener {
 
-    public boolean haut, bas, gauche, droite;
-    public boolean enterPressed;
+    public boolean haut, bas, gauche, droite;  // touches de déplacement
+    public boolean enterPressed;               // touche de validation (menu)
 
+    /**
+     * Non utilisé ici, mais obligatoire à implémenter.
+     */
     @Override
-    public void keyTyped(KeyEvent e) {
-        // Pas utilisé ici
-    }
+    public void keyTyped(KeyEvent e) {}
 
-    // 6. Gestion des entrées clavier
-    // 6.1. Appuyer sur une touche
+    /**
+     * Appelé lorsqu'une touche est pressée.
+     * Active les directions selon les touches ZQSD ou flèches.
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -27,7 +34,10 @@ public class KeyHandler implements KeyListener {
 
     }
 
-    // 6.2. Relâcher une touche
+    /**
+     * Appelé lorsqu'une touche est relâchée.
+     * Désactive les directions quand le joueur relâche les touches.
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
