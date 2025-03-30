@@ -36,7 +36,7 @@ public class Player extends Entity{
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
-        // Définir la hitbox pour les collisions :
+        // Définir la hitbox pour les collisions.
         hitbox = new Rectangle();
         hitbox.x = 8;
         hitbox.y = 16;
