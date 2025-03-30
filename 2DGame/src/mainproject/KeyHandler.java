@@ -19,10 +19,10 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) haut = true;
-        if (code == KeyEvent.VK_S) bas = true;
-        if (code == KeyEvent.VK_A) gauche = true;
-        if (code == KeyEvent.VK_D) droite = true;
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) haut = true;
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) bas = true;
+        if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) gauche = true;
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) droite = true;
         if (code == KeyEvent.VK_ENTER || code ==KeyEvent.VK_SPACE)enterPressed=true;
 
     }
@@ -32,9 +32,9 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_W) haut = false;
-        if (code == KeyEvent.VK_S) bas = false;
-        if (code == KeyEvent.VK_A) gauche = false;
-        if (code == KeyEvent.VK_D) droite = false;
+        if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) haut = false;
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) bas = false;
+        if (code == KeyEvent.VK_A ||  code == KeyEvent.VK_LEFT) gauche = false;
+        if (code == KeyEvent.VK_D ||  code == KeyEvent.VK_RIGHT) droite = false;
     }
 }

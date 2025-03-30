@@ -55,18 +55,18 @@ public class Player extends Entity{
             bas4  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-4.png"));
             bas5  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-5.png"));
             bas6  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-6.png"));
-            gauche1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1.png"));
-            gauche2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2.png"));
-            gauche3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3.png"));
-            gauche4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4.png"));
-            gauche5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5.png"));
-            gauche6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6.png"));
-            droite1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1-droite.png"));
-            droite2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2-droite.png"));
-            droite3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3-droite.png"));
-            droite4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4-droite.png"));
-            droite5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5-droite.png"));
-            droite6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6-droite.png"));
+            gauche1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1-gauche.png"));
+            gauche2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2-gauche.png"));
+            gauche3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3-gauche.png"));
+            gauche4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4-gauche.png"));
+            gauche5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5-gauche.png"));
+            gauche6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6-gauche.png"));
+            droite1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1.png"));
+            droite2 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-2.png"));
+            droite3 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-3.png"));
+            droite4 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-4.png"));
+            droite5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5.png"));
+            droite6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6.png"));
 
         }catch(IOException e) {
             e.printStackTrace();
