@@ -143,34 +143,16 @@ public class Player extends Entity{
         isMoving = false; // Par défaut, on suppose que le joueur est immobile
 
         // Variables pour gérer les mouvements indépendants sur chaque axe
-        boolean movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
-
-        // Déterminer les directions actives
-        if (keyH.haut) {
-            direction = "haut";
-            movingUp = true;
-            isMoving = true;
-        }
-        if (keyH.bas) {
-            direction = "bas";
-            movingDown = true;
-            isMoving = true;
-        }
-        if (keyH.gauche) {
-            direction = "gauche";
-            movingLeft = true;
-            isMoving = true;
-        }
-        if (keyH.droite) {
-            direction = "droite";
-            movingRight = true;
-            isMoving = true;
-        }
+        boolean movingUp = keyH.haut;
+        boolean movingDown = keyH.bas;
+        boolean movingLeft = keyH.gauche;
+        boolean movingRight = keyH.droite;
 
         // Calcul de la vitesse pour les diagonales
         double speedX = 0, speedY = 0;
         double diagonalSpeed = speed / Math.sqrt(2); // Réduction de la vitesse pour les diagonales
 
+        // Déterminer les mouvements sur chaque axe
         if (movingUp && !movingDown) speedY -= speed; // Mouvement vers le haut
         if (movingDown && !movingUp) speedY += speed; // Mouvement vers le bas
         if (movingLeft && !movingRight) speedX -= speed; // Mouvement vers la gauche
@@ -185,27 +167,47 @@ public class Player extends Entity{
         // Vérification des collisions avec la carte
         collisionOn = false;
 
-        // Vérifier les collisions horizontales
+        // Sauvegarder la position actuelle du joueur avant de tester les mouvements
+        int originalWorldX = worldx;
+        int originalWorldY = worldy;
+
+        // Tester le mouvement horizontal
         if (speedX != 0) {
-            worldx += speedX;
-            gp.collisionChecker.checkTile(this);
+            worldx += speedX; // Appliquer temporairement le mouvement horizontal
+            gp.collisionChecker.checkTile(this); // Vérifier les collisions
             if (collisionOn) {
-                worldx -= speedX; // Annuler le mouvement horizontal en cas de collision
+                worldx = originalWorldX; // Annuler le mouvement horizontal en cas de collision
             }
         }
 
-        // Vérifier les collisions verticales
+        // Tester le mouvement vertical
         if (speedY != 0) {
-            worldy += speedY;
-            gp.collisionChecker.checkTile(this);
+            worldy += speedY; // Appliquer temporairement le mouvement vertical
+            gp.collisionChecker.checkTile(this); // Vérifier les collisions
             if (collisionOn) {
-                worldy -= speedY; // Annuler le mouvement vertical en cas de collision
+                worldy = originalWorldY; // Annuler le mouvement vertical en cas de collision
             }
         }
+
+        // Mettre à jour la direction principale pour l'animation
+        if (movingUp && !movingDown) {
+            direction = "haut";
+        } else if (movingDown && !movingUp) {
+            direction = "bas";
+        }
+        if (movingLeft && !movingRight) {
+            direction = "gauche";
+        } else if (movingRight && !movingLeft) {
+            direction = "droite";
+        }
+
+        // Marquer comme en mouvement si une touche est pressée
+        isMoving = movingUp || movingDown || movingLeft || movingRight;
 
         // Toujours faire tourner l'animation, même immobile
         updateAnimation();
     }
+
     /**
      * Dessine le joueur à l'écran avec le bon sprite selon sa direction et son état (marche/immobile).
      *
