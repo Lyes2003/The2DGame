@@ -18,7 +18,7 @@ public class Game {
 
         // Empêche de redimensionner la fenêtre
         window.setResizable(true);
-
+j
         // Titre de la fenêtre
         window.setTitle("test");
 

@@ -1,5 +1,6 @@
 package mainproject;
 
+import mainproject.entity.PNJ;
 import mainproject.ui.ui;
 import mainproject.entity.Player;
 import mainproject.tile.TileManager;
@@ -46,6 +47,10 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
+    public PNJ pnj = new PNJ(this, player.worldx + tileSize, player.worldy);      // À droite du joueur
+    public PNJ pnj1 = new PNJ(this, player.worldx - tileSize, player.worldy);     // À gauche du joueur
+    public PNJ pnj2 = new PNJ(this, player.worldx, player.worldy + tileSize);
+
     ui ui = new ui(this);
 
     /**
@@ -57,6 +62,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);  // améliore le rendu
         this.setFocusable(true);
         this.addKeyListener(keyH);
+        pnj1.worldx = tileSize * 24;      // Position pour pnj1
+        pnj1.worldy = tileSize * 21;
+        pnj2.worldx = tileSize * 25;      // Position pour pnj2
+        pnj2.worldy = tileSize * 22;
 
         // Gestion des clics de souris
         this.addMouseListener(new MouseAdapter() {
@@ -136,7 +145,11 @@ public class GamePanel extends JPanel implements Runnable {
                 Game_state = game_is_running;
             }
         } else if (Game_state == game_is_running) {
-            player.update();   // mise à jour du joueur
+            player.update();// mise à jour du joueur
+            pnj.update();
+            pnj1.update();
+            pnj2.update();
+
         }
     }
 
@@ -154,6 +167,9 @@ public class GamePanel extends JPanel implements Runnable {
             tileManager.draw(g2, 0); // couche sol
             tileManager.draw(g2, 1); // objets au sol
             player.draw(g2);               // joueur
+            pnj.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
+            pnj1.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
+            pnj2.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
             tileManager.draw(g2, 2);  // objets au-dessus (arbres, etc.)
         }
 
