@@ -26,6 +26,11 @@ public class Entity {
     BufferedImage idleGauche1, idleGauche2, idleGauche3, idleGauche4, idleGauche5, idleGauche6;
     BufferedImage idleDroite1, idleDroite2, idleDroite3, idleDroite4, idleDroite5, idleDroite6;
 
+    BufferedImage attackDroite1, attackDroite2, attackDroite3, attackDroite4;
+    BufferedImage attackHaut1, attackHaut2, attackHaut3, attackHaut4;
+    BufferedImage attackBas1, attackBas2, attackBas3, attackBas4;
+    BufferedImage attackGauche1, attackGauche2, attackGauche3, attackGauche4;
+
     /** Indique si l'entité est actuellement en mouvement */
     boolean isMoving;
 

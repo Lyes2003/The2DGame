@@ -11,16 +11,21 @@ import java.io.IOException;
 /**
  * Classe représentant le joueur dans le jeu.
  * Elle gère sa position dans le monde, sa direction, son déplacement,
- * les collisions avec les tuiles, et les animations (marche et idle).
+ * les collisions avec les tuiles, et les animations (marche, idle et attaque).
  */
-public class Player extends Entity{
-    GamePanel gp;
-    KeyHandler keyH;
+public class Player extends Entity {
+    private GamePanel gp;
+    private KeyHandler keyH;
 
-    // Position fixe du joueur à l'écran (le monde bouge autour de lui)
-    public final int screenX; // indique ou dessiné le joueur sur l'axe des X
-    public final int screenY; // indique ou dessiné le joueur sur l'axe des y
+    // Position fixe du joueur à l'écran
+    public final int screenX;
+    public final int screenY;
 
+    // Attributs pour gérer l'attaque
+    private String attackDirection = "droite"; // Direction de l'attaque
+    private int attackSpeed = 8; // Vitesse spéciale pour l'attaque
+    private int attackCounter = 0; // Compteur pour suivre les mouvements d'attaque
+    private boolean isAttacking = false; // État pour indiquer si le joueur est en train d'attaquer
 
     /**
      * Constructeur du joueur.
@@ -33,15 +38,12 @@ public class Player extends Entity{
         this.gp = gp;
         this.keyH = keyH;
 
+        // Calcul de la position fixe à l'écran
         screenX = gp.screenWidth / 2 - gp.tileSize / 2;
         screenY = gp.screenHeight / 2 - gp.tileSize / 2;
 
-        // Définir la hitbox pour les collisions.
-        hitbox = new Rectangle();
-        hitbox.x = 8;
-        hitbox.y = 16;
-        hitbox.width = 16;
-        hitbox.height = 16;
+        // Définir la hitbox pour les collisions
+        hitbox = new Rectangle(8, 16, 16, 16);
 
         setDefaultValues();
         getPlayerImage();
@@ -58,10 +60,9 @@ public class Player extends Entity{
     }
 
     /**
-     * Charge tous les sprites d'animation du joueur (marche et idle) pour chaque direction.
+     * Charge tous les sprites d'animation du joueur (marche, idle et attaque) pour chaque direction.
      */
     public void getPlayerImage() {
-
         try {
             // Haut
             haut1 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-1.png"));
@@ -72,12 +73,12 @@ public class Player extends Entity{
             haut6 = ImageIO.read(getClass().getResourceAsStream("/player/row-6-column-6.png"));
 
             // Bas
-            bas1  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-1.png"));
-            bas2  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-2.png"));
-            bas3  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-3.png"));
-            bas4  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-4.png"));
-            bas5  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-5.png"));
-            bas6  = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-6.png"));
+            bas1 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-1.png"));
+            bas2 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-2.png"));
+            bas3 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-3.png"));
+            bas4 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-4.png"));
+            bas5 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-5.png"));
+            bas6 = ImageIO.read(getClass().getResourceAsStream("/player/row-4-column-6.png"));
 
             // Gauche
             gauche1 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-1-gauche.png"));
@@ -95,9 +96,7 @@ public class Player extends Entity{
             droite5 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-5.png"));
             droite6 = ImageIO.read(getClass().getResourceAsStream("/player/row-5-column-6.png"));
 
-            // Sprites idle :
-
-            // idle haute
+            // Idle
             idleHaut1 = ImageIO.read(getClass().getResourceAsStream("/player/idle-haut-1.png"));
             idleHaut2 = ImageIO.read(getClass().getResourceAsStream("/player/idle-haut-2.png"));
             idleHaut3 = ImageIO.read(getClass().getResourceAsStream("/player/idle-haut-3.png"));
@@ -105,7 +104,6 @@ public class Player extends Entity{
             idleHaut5 = ImageIO.read(getClass().getResourceAsStream("/player/idle-haut-5.png"));
             idleHaut6 = ImageIO.read(getClass().getResourceAsStream("/player/idle-haut-6.png"));
 
-            // idle bas
             idleBas1 = ImageIO.read(getClass().getResourceAsStream("/player/idle-bas-1.png"));
             idleBas2 = ImageIO.read(getClass().getResourceAsStream("/player/idle-bas-2.png"));
             idleBas3 = ImageIO.read(getClass().getResourceAsStream("/player/idle-bas-3.png"));
@@ -113,7 +111,6 @@ public class Player extends Entity{
             idleBas5 = ImageIO.read(getClass().getResourceAsStream("/player/idle-bas-5.png"));
             idleBas6 = ImageIO.read(getClass().getResourceAsStream("/player/idle-bas-6.png"));
 
-            // idle gauche
             idleGauche1 = ImageIO.read(getClass().getResourceAsStream("/player/idle-gauche-1.png"));
             idleGauche2 = ImageIO.read(getClass().getResourceAsStream("/player/idle-gauche-2.png"));
             idleGauche3 = ImageIO.read(getClass().getResourceAsStream("/player/idle-gauche-3.png"));
@@ -121,7 +118,6 @@ public class Player extends Entity{
             idleGauche5 = ImageIO.read(getClass().getResourceAsStream("/player/idle-gauche-5.png"));
             idleGauche6 = ImageIO.read(getClass().getResourceAsStream("/player/idle-gauche-6.png"));
 
-            //idle droite
             idleDroite1 = ImageIO.read(getClass().getResourceAsStream("/player/idle-droite-1.png"));
             idleDroite2 = ImageIO.read(getClass().getResourceAsStream("/player/idle-droite-2.png"));
             idleDroite3 = ImageIO.read(getClass().getResourceAsStream("/player/idle-droite-3.png"));
@@ -129,8 +125,27 @@ public class Player extends Entity{
             idleDroite5 = ImageIO.read(getClass().getResourceAsStream("/player/idle-droite-5.png"));
             idleDroite6 = ImageIO.read(getClass().getResourceAsStream("/player/idle-droite-6.png"));
 
+            // Attaque
+            attackHaut1 = ImageIO.read(getClass().getResourceAsStream("/player/row-9-column-1.png"));
+            attackHaut2 = ImageIO.read(getClass().getResourceAsStream("/player/row-9-column-2.png"));
+            attackHaut3 = ImageIO.read(getClass().getResourceAsStream("/player/row-9-column-3.png"));
+            attackHaut4 = ImageIO.read(getClass().getResourceAsStream("/player/row-9-column-4.png"));
 
-        }catch(IOException e) {
+            attackBas1 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-1.png"));
+            attackBas2 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-2.png"));
+            attackBas3 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-3.png"));
+            attackBas4 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-4.png"));
+
+            attackGauche1 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-1.png"));
+            attackGauche2 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-2.png"));
+            attackGauche3 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-3.png"));
+            attackGauche4 = ImageIO.read(getClass().getResourceAsStream("/player/row-7-column-4.png"));
+
+            attackDroite1 = ImageIO.read(getClass().getResourceAsStream("/player/row-8-column-1.png"));
+            attackDroite2 = ImageIO.read(getClass().getResourceAsStream("/player/row-8-column-2.png"));
+            attackDroite3 = ImageIO.read(getClass().getResourceAsStream("/player/row-8-column-3.png"));
+            attackDroite4 = ImageIO.read(getClass().getResourceAsStream("/player/row-8-column-4.png"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -140,7 +155,7 @@ public class Player extends Entity{
      * Appelé automatiquement à chaque frame.
      */
     public void update() {
-        isMoving = false; // Par défaut, on suppose que le joueur est immobile
+        isMoving = false;
 
         // Variables pour gérer les mouvements indépendants sur chaque axe
         boolean movingUp = keyH.haut;
@@ -148,248 +163,177 @@ public class Player extends Entity{
         boolean movingLeft = keyH.gauche;
         boolean movingRight = keyH.droite;
 
-        // Calcul de la vitesse pour les diagonales
+        // Gestion de l'attaque
+        if (keyH.attackDroite && !isAttacking) {
+            isAttacking = true;
+            attackCounter = 0;
+            attackDirection = direction; // La direction de l'attaque correspond à la direction actuelle
+        }
+
+        if (isAttacking) {
+            if (attackCounter < 15) { // Limiter à 15 mouvements
+                speed = attackSpeed;
+                attackCounter++;
+            } else {
+                isAttacking = false;
+                keyH.attackDroite = false;
+                attackCounter = 0;
+                speed = 4;
+            }
+        }
+
         double speedX = 0, speedY = 0;
         double diagonalSpeed = speed / Math.sqrt(2); // Réduction de la vitesse pour les diagonales
 
         // Déterminer les mouvements sur chaque axe
-        if (movingUp && !movingDown) speedY -= speed; // Mouvement vers le haut
-        if (movingDown && !movingUp) speedY += speed; // Mouvement vers le bas
-        if (movingLeft && !movingRight) speedX -= speed; // Mouvement vers la gauche
-        if (movingRight && !movingLeft) speedX += speed; // Mouvement vers la droite
+        if (movingUp && !movingDown) speedY -= speed;
+        if (movingDown && !movingUp) speedY += speed;
+        if (movingLeft && !movingRight) speedX -= speed;
+        if (movingRight && !movingLeft) speedX += speed;
 
         // Ajustement pour les mouvements diagonaux
         if ((movingUp || movingDown) && (movingLeft || movingRight)) {
-            speedX *= diagonalSpeed / speed; // Réduction proportionnelle pour l'axe X
-            speedY *= diagonalSpeed / speed; // Réduction proportionnelle pour l'axe Y
+            speedX *= diagonalSpeed / speed;
+            speedY *= diagonalSpeed / speed;
         }
 
         // Vérification des collisions avec la carte
         collisionOn = false;
-
-        // Sauvegarder la position actuelle du joueur avant de tester les mouvements
         int originalWorldX = worldx;
         int originalWorldY = worldy;
 
-        // Tester le mouvement horizontal
         if (speedX != 0) {
-            worldx += speedX; // Appliquer temporairement le mouvement horizontal
-            gp.collisionChecker.checkTile(this); // Vérifier les collisions
-            if (collisionOn) {
-                worldx = originalWorldX; // Annuler le mouvement horizontal en cas de collision
-            }
+            worldx += speedX;
+            gp.collisionChecker.checkTile(this);
+            if (collisionOn) worldx = originalWorldX;
         }
 
-        // Tester le mouvement vertical
         if (speedY != 0) {
-            worldy += speedY; // Appliquer temporairement le mouvement vertical
-            gp.collisionChecker.checkTile(this); // Vérifier les collisions
-            if (collisionOn) {
-                worldy = originalWorldY; // Annuler le mouvement vertical en cas de collision
-            }
+            worldy += speedY;
+            gp.collisionChecker.checkTile(this);
+            if (collisionOn) worldy = originalWorldY;
         }
 
         // Mettre à jour la direction principale pour l'animation
-        if (movingUp && !movingDown) {
-            direction = "haut";
-        } else if (movingDown && !movingUp) {
-            direction = "bas";
-        }
-        if (movingLeft && !movingRight) {
-            direction = "gauche";
-        } else if (movingRight && !movingLeft) {
-            direction = "droite";
-        }
+        if (movingUp && !movingDown) direction = "haut";
+        else if (movingDown && !movingUp) direction = "bas";
+        if (movingLeft && !movingRight) direction = "gauche";
+        else if (movingRight && !movingLeft) direction = "droite";
 
-        // Marquer comme en mouvement si une touche est pressée
-        isMoving = movingUp || movingDown || movingLeft || movingRight;
-
-        // Toujours faire tourner l'animation, même immobile
+        isMoving = movingUp || movingDown || movingLeft || movingRight || isAttacking;
         updateAnimation();
     }
 
     /**
-     * Dessine le joueur à l'écran avec le bon sprite selon sa direction et son état (marche/immobile).
+     * Dessine le joueur à l'écran avec le bon sprite selon sa direction et son état (marche, idle ou attaque).
      *
      * @param g2 Contexte graphique utilisé pour le dessin.
      */
     public void draw(Graphics2D g2) {
-
         BufferedImage image = null;
-        if (isMoving) {
-            // Afficher sprite de déplacement
-            switch(direction) {
+
+        if (isAttacking) {
+            switch (attackDirection) {
                 case "haut":
-                    if(spriteNum == 1) {
-                        image = haut1;
-                    }
-                    if(spriteNum == 2) {
-                        image = haut2;
-                    }
-                    if(spriteNum == 3) {
-                        image = haut3;
-                    }
-                    if(spriteNum == 4) {
-                        image = haut4;
-                    }
-                    if(spriteNum == 5) {
-                        image = haut5;
-                    }
-                    if(spriteNum == 6) {
-                        image = haut6;
+                    switch (attackCounter / 6) {
+                        case 0: image = attackHaut1; break;
+                        case 1: image = attackHaut2; break;
+                        case 2: image = attackHaut3; break;
+                        case 3: image = attackHaut4; break;
+                        default: image = attackHaut1; break;
                     }
                     break;
                 case "bas":
-                    if(spriteNum == 1) {
-                        image = bas1;
-                    }
-                    if(spriteNum == 2) {
-                        image = bas2;
-                    }
-                    if(spriteNum == 3) {
-                        image = bas3;
-                    }
-                    if(spriteNum == 4) {
-                        image = bas4;
-                    }
-                    if(spriteNum == 5) {
-                        image = bas5;
-                    }
-                    if(spriteNum == 6) {
-                        image = bas6;
+                    switch (attackCounter / 6) {
+                        case 0: image = attackBas1; break;
+                        case 1: image = attackBas2; break;
+                        case 2: image = attackBas3; break;
+                        case 3: image = attackBas4; break;
+                        default: image = attackBas1; break;
                     }
                     break;
                 case "gauche":
-                    if(spriteNum == 1) {
-                        image = gauche1;
-                    }
-                    if(spriteNum == 2) {
-                        image = gauche2;
-                    }
-                    if(spriteNum == 3) {
-                        image = gauche3;
-                    }
-                    if(spriteNum == 4) {
-                        image = gauche4;
-                    }
-                    if(spriteNum == 5) {
-                        image = gauche5;
-                    }
-                    if(spriteNum == 6) {
-                        image = gauche6;
+                    switch (attackCounter / 6) {
+                        case 0: image = attackGauche1; break;
+                        case 1: image = attackGauche2; break;
+                        case 2: image = attackGauche3; break;
+                        case 3: image = attackGauche4; break;
+                        default: image = attackGauche1; break;
                     }
                     break;
                 case "droite":
-                    if(spriteNum == 1) {
-                        image = droite1;
-                    }
-                    if(spriteNum == 2) {
-                        image = droite2;
-                    }
-                    if(spriteNum == 3) {
-                        image = droite3;
-                    }
-                    if(spriteNum == 4) {
-                        image = droite4;
-                    }
-                    if(spriteNum == 5) {
-                        image = droite5;
-                    }
-                    if(spriteNum == 6) {
-                        image = droite6;
+                    switch (attackCounter / 6) {
+                        case 0: image = attackDroite1; break;
+                        case 1: image = attackDroite2; break;
+                        case 2: image = attackDroite3; break;
+                        case 3: image = attackDroite4; break;
+                        default: image = attackDroite1; break;
                     }
                     break;
             }
-        }else{
-            // Afficher sprite idle
-            switch(direction) {
+        } else if (isMoving) {
+            switch (direction) {
                 case "haut":
-                    if(spriteNum == 1) {
-                        image = idleHaut1;
-                    }
-                    if(spriteNum == 2) {
-                        image = idleHaut2;
-                    }
-                    if(spriteNum == 3) {
-                        image = idleHaut3;
-                    }
-                    if(spriteNum == 4) {
-                        image = idleHaut4;
-                    }
-                    if(spriteNum == 5) {
-                        image = idleHaut5;
-                    }
-                    if(spriteNum == 6) {
-                        image = idleHaut6;
-                    }
+                    image = getMovingSprite(haut1, haut2, haut3, haut4, haut5, haut6);
                     break;
                 case "bas":
-                    if(spriteNum == 1) {
-                        image = idleBas1;
-                    }
-                    if(spriteNum == 2) {
-                        image = idleBas2;
-                    }
-                    if(spriteNum == 3) {
-                        image = idleBas3;
-                    }
-                    if(spriteNum == 4) {
-                        image = idleBas4;
-                    }
-                    if(spriteNum == 5) {
-                        image = idleBas5;
-                    }
-                    if(spriteNum == 6) {
-                        image = idleBas6;
-                    }
+                    image = getMovingSprite(bas1, bas2, bas3, bas4, bas5, bas6);
                     break;
                 case "gauche":
-                    if(spriteNum == 1) {
-                        image = idleGauche1;
-                    }
-                    if(spriteNum == 2) {
-                        image = idleGauche2;
-                    }
-                    if(spriteNum == 3) {
-                        image = idleGauche3;
-                    }
-                    if(spriteNum == 4) {
-                        image = idleGauche4;
-                    }
-                    if(spriteNum == 5) {
-                        image = idleGauche5;
-                    }
-                    if(spriteNum == 6) {
-                        image = idleGauche6;
-                    }
+                    image = getMovingSprite(gauche1, gauche2, gauche3, gauche4, gauche5, gauche6);
                     break;
                 case "droite":
-                    if(spriteNum == 1) {
-                        image = idleDroite1;
-                    }
-                    if(spriteNum == 2) {
-                        image = idleDroite2;
-                    }
-                    if(spriteNum == 3) {
-                        image = idleDroite3;
-                    }
-                    if(spriteNum == 4) {
-                        image = idleDroite4;
-                    }
-                    if(spriteNum == 5) {
-                        image = idleDroite5;
-                    }
-                    if(spriteNum == 6) {
-                        image = idleDroite6;
-                    }
+                    image = getMovingSprite(droite1, droite2, droite3, droite4, droite5, droite6);
+                    break;
+            }
+        } else {
+            switch (direction) {
+                case "haut":
+                    image = getIdleSprite(idleHaut1, idleHaut2, idleHaut3, idleHaut4, idleHaut5, idleHaut6);
+                    break;
+                case "bas":
+                    image = getIdleSprite(idleBas1, idleBas2, idleBas3, idleBas4, idleBas5, idleBas6);
+                    break;
+                case "gauche":
+                    image = getIdleSprite(idleGauche1, idleGauche2, idleGauche3, idleGauche4, idleGauche5, idleGauche6);
+                    break;
+                case "droite":
+                    image = getIdleSprite(idleDroite1, idleDroite2, idleDroite3, idleDroite4, idleDroite5, idleDroite6);
                     break;
             }
         }
 
-        // Dessiner le joueur à l’écran (toujours centré à screenX/screenY)
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-        System.out.println("DRAW - isMoving = " + isMoving + ", direction = " + direction + ", spriteNum = " + spriteNum);
+    }
 
+    /**
+     * Retourne le sprite correspondant à l'animation de marche.
+     */
+    private BufferedImage getMovingSprite(BufferedImage sprite1, BufferedImage sprite2, BufferedImage sprite3, BufferedImage sprite4, BufferedImage sprite5, BufferedImage sprite6) {
+        switch (spriteNum) {
+            case 1: return sprite1;
+            case 2: return sprite2;
+            case 3: return sprite3;
+            case 4: return sprite4;
+            case 5: return sprite5;
+            case 6: return sprite6;
+            default: return sprite1;
+        }
+    }
+
+    /**
+     * Retourne le sprite correspondant à l'animation idle.
+     */
+    private BufferedImage getIdleSprite(BufferedImage sprite1, BufferedImage sprite2, BufferedImage sprite3, BufferedImage sprite4, BufferedImage sprite5, BufferedImage sprite6) {
+        switch (spriteNum) {
+            case 1: return sprite1;
+            case 2: return sprite2;
+            case 3: return sprite3;
+            case 4: return sprite4;
+            case 5: return sprite5;
+            case 6: return sprite6;
+            default: return sprite1;
+        }
     }
 
     /**
@@ -398,14 +342,10 @@ public class Player extends Entity{
      */
     public void updateAnimation() {
         spriteCounter++;
-
-        if (spriteCounter >= 12) { // délai entre les frames
+        if (spriteCounter >= 12) {
             spriteNum++;
-            if (spriteNum > 6) {
-                spriteNum = 1; // boucle de 1 à 6
-            }
+            if (spriteNum > 6) spriteNum = 1;
             spriteCounter = 0;
         }
-        System.out.println("spriteNum = " + spriteNum);
     }
 }
