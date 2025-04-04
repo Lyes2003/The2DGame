@@ -9,7 +9,8 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener {
 
-    public boolean haut, bas, gauche, droite;  // touches de déplacement
+    public boolean haut, bas, gauche, droite, attackDroite;  // touches de déplacement
+
     public boolean enterPressed;               // touche de validation (menu)
 
     /**
@@ -30,6 +31,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) bas = true;
         if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) gauche = true;
         if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) droite = true;
+        //attack
+        if (code == KeyEvent.VK_F) attackDroite = true;
+
         if (code == KeyEvent.VK_ENTER || code ==KeyEvent.VK_SPACE)enterPressed=true;
 
     }
@@ -46,5 +50,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) bas = false;
         if (code == KeyEvent.VK_A ||  code == KeyEvent.VK_LEFT) gauche = false;
         if (code == KeyEvent.VK_D ||  code == KeyEvent.VK_RIGHT) droite = false;
+
     }
 }
