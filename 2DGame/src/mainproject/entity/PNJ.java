@@ -12,7 +12,13 @@ import java.io.IOException;
  */
 public class PNJ extends Entity {
     GamePanel gp;
-
+    {
+        this.hitbox = new Rectangle();
+        this.hitbox.x = 8;
+        this.hitbox.y = 16;
+        this.hitbox.width = 16;
+        this.hitbox.height = 16;
+    }
     /**
      * Constructeur du PNJ
      */

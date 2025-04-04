@@ -145,11 +145,26 @@ public class GamePanel extends JPanel implements Runnable {
                 Game_state = game_is_running;
             }
         } else if (Game_state == game_is_running) {
-            player.update();// mise à jour du joueur
-            pnj.update();
-            pnj1.update();
-            pnj2.update();
+            player.update(); // Mettre à jour le joueur
 
+            // Vérifier les collisions entre le joueur et chaque PNJ
+            if (pnj != null && collisionChecker.checkCollision(player, pnj) && player.isAttacking()) {
+                System.out.println("Collision avec PNJ !");
+                pnj = null; // Supprimer le PNJ ou appeler une méthode die()
+            }
+            if (pnj1 != null && collisionChecker.checkCollision(player, pnj1) && player.isAttacking()) {
+                System.out.println("Collision avec PNJ1 !");
+                pnj1 = null; // Supprimer le PNJ ou appeler une méthode die()
+            }
+            if (pnj2 != null && collisionChecker.checkCollision(player, pnj2) && player.isAttacking()) {
+                System.out.println("Collision avec PNJ2 !");
+                pnj2 = null; // Supprimer le PNJ ou appeler une méthode die()
+            }
+
+            // Mettre à jour les PNJ s'ils existent encore
+            if (pnj != null) pnj.update();
+            if (pnj1 != null) pnj1.update();
+            if (pnj2 != null) pnj2.update();
         }
     }
 
@@ -166,13 +181,16 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             tileManager.draw(g2, 0); // couche sol
             tileManager.draw(g2, 1); // objets au sol
-            player.draw(g2);               // joueur
-            pnj.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
-            pnj1.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
-            pnj2.draw(g2);            // Ajoute cette ligne pour dessiner le PNJ
-            tileManager.draw(g2, 2);  // objets au-dessus (arbres, etc.)
+
+            player.draw(g2); // Dessiner le joueur
+
+            // Vérifier si les PNJ existent encore avant de les dessiner
+            if (pnj != null) pnj.draw(g2);
+            if (pnj1 != null) pnj1.draw(g2);
+            if (pnj2 != null) pnj2.draw(g2);
+
+            tileManager.draw(g2, 2); // objets au-dessus (arbres, etc.)
         }
 
-        g2.dispose();  // libère les ressources graphiques
-    }
-}
+        g2.dispose(); // Libérer les ressources graphiques
+    }}

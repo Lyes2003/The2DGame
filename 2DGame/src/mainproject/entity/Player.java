@@ -15,6 +15,15 @@ import java.io.IOException;
  */
 public class Player extends Entity {
     private GamePanel gp;
+
+    public GamePanel getGp() {
+        return gp;
+    }
+
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
     private KeyHandler keyH;
 
     // Position fixe du joueur à l'écran

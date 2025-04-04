@@ -2,6 +2,8 @@ package mainproject;
 
 import mainproject.entity.Entity;
 
+import java.awt.*;
+
 /**
  * Cette classe permet de vérifier si une entité (comme le joueur)
  * entre en collision avec des tuiles de la carte.
@@ -18,8 +20,43 @@ public class CollisionChecker {
     public CollisionChecker(GamePanel gp) {
         this.gp = gp;
     }
-
+    //verifie la collision entre 2 entity
     /**
+     * Vérifie si deux entités entrent en collision.
+     *
+     * @param entity1 Première entité (par exemple, le joueur).
+     * @param entity2 Deuxième entité (par exemple, un PNJ).
+     * @return true si les hitboxes des deux entités se chevauchent, sinon false.
+     */
+    public boolean checkCollision(Entity entity1, Entity entity2) {
+        // Vérifier qu'aucune des entités n'est null
+        if (entity1 == null || entity2 == null) {
+            return false; // Pas de collision possible si une entité est null
+        }
+
+        // Calculer les rectangles de collision pour chaque entité
+        Rectangle hitbox1 = new Rectangle(
+                entity1.worldx + entity1.hitbox.x,
+                entity1.worldy + entity1.hitbox.y,
+                entity1.hitbox.width,
+                entity1.hitbox.height
+        );
+
+        Rectangle hitbox2 = new Rectangle(
+                entity2.worldx + entity2.hitbox.x,
+                entity2.worldy + entity2.hitbox.y,
+                entity2.hitbox.width,
+                entity2.hitbox.height
+        );
+
+        // Vérifier si les rectangles se chevauchent
+        boolean isColliding = hitbox1.intersects(hitbox2);
+        if (isColliding) {
+            System.out.println("Collision détectée entre " + entity1 + " et " + entity2);
+        }
+
+        return isColliding;
+    }/**
      * Vérifie si l'entité est en collision avec une tuile sur la carte,
      * selon sa direction actuelle et sa vitesse.
      * La détection se fait sur les couches 0 (sol) et 2 (éléments hauts comme les arbres).
