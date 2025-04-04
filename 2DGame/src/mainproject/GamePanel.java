@@ -62,10 +62,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);  // améliore le rendu
         this.setFocusable(true);
         this.addKeyListener(keyH);
-        pnj1.worldx = tileSize * 24;      // Position pour pnj1
-        pnj1.worldy = tileSize * 21;
+        pnj1.worldx = tileSize * 19;      // Position pour pnj1
+        pnj1.worldy = tileSize * 14;
         pnj2.worldx = tileSize * 25;      // Position pour pnj2
-        pnj2.worldy = tileSize * 22;
+        pnj2.worldy = tileSize * 28;
 
         // Gestion des clics de souris
         this.addMouseListener(new MouseAdapter() {
