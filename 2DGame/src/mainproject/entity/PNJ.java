@@ -45,7 +45,7 @@ public class PNJ extends Entity {
     public void update() {
         spriteCounter++;
 
-        if (spriteCounter > 60) { // Change de direction toutes les 60 frames
+        if (spriteCounter > 100) { // Change de direction toutes les 60 frames
             int random = (int) (Math.random() * 4); // Choisit une direction au hasard
 
             switch (random) {
