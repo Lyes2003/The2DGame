@@ -179,17 +179,41 @@ public class GamePanel extends JPanel implements Runnable {
         if (Game_state == Start_screen || Game_state == settings_screen) {
             ui.draw(g2);
         } else {
+            // Dessiner les couches de tuiles
             tileManager.draw(g2, 0); // couche sol
             tileManager.draw(g2, 1); // objets au sol
 
-            player.draw(g2); // Dessiner le joueur
+            // Créer un tableau d'objets Drawable
+            Drawable[] drawables = new Drawable[4]; // Taille fixe pour le joueur + 3 PNJ
+            int drawableCount = 0;
 
-            // Vérifier si les PNJ existent encore avant de les dessiner
-            if (pnj != null) pnj.draw(g2);
-            if (pnj1 != null) pnj1.draw(g2);
-            if (pnj2 != null) pnj2.draw(g2);
+            // Ajouter le joueur au tableau
+            drawables[drawableCount++] = player;
 
-            tileManager.draw(g2, 2); // objets au-dessus (arbres, etc.)
+            // Ajouter les PNJ s'ils existent encore
+            if (pnj != null) drawables[drawableCount++] = pnj;
+            if (pnj1 != null) drawables[drawableCount++] = pnj1;
+            if (pnj2 != null) drawables[drawableCount++] = pnj2;
+
+            // Trier les objets par leur position verticale (worldY)
+            for (int i = 0; i < drawableCount - 1; i++) {
+                for (int j = i + 1; j < drawableCount; j++) {
+                    if (drawables[i].getWorldY() > drawables[j].getWorldY()) {
+                        // Échanger les deux objets
+                        Drawable temp = drawables[i];
+                        drawables[i] = drawables[j];
+                        drawables[j] = temp;
+                    }
+                }
+            }
+
+            // Dessiner les objets dans l'ordre trié
+            for (int i = 0; i < drawableCount; i++) {
+                drawables[i].draw(g2);
+            }
+
+            // Dessiner les objets au-dessus (arbres, etc.)
+            tileManager.draw(g2, 2);
         }
 
         g2.dispose(); // Libérer les ressources graphiques
