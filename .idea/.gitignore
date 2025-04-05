@@ -1,0 +1,7 @@
+# Ignorer les fichiers compilés
+out/
+*.class
+
+# Ignorer les fichiers IDE spécifiques
+.idea/
+*.iml

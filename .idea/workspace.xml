@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2bee1d7a-e6e8-4995-ae11-5f8bd630385d" name="Changes" comment="killing pnjs">
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/audio/Trap.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/fonts/Minecraftia-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/CollisionChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/GamePanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/GamePanel$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The2DGame/mainproject/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/KeyHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/Entity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/PNJ.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/PNJ.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/The2DGame/mainproject/entity/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/test/GamePanelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/tile/Tile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/tile/TileManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/ui/ui$Particle.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/ui/ui$PlayerCharacter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/ui/ui.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/mainproject/ui/ui_test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/map01.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/maps/test6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-bas-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-droite-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-gauche-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/idle-haut-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-10-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-10-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-10-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-10-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-4-column-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-1-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-2-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-3-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-4-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-5-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-6-gauche.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-5-column-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-6-column-6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-7-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-7-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-7-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-7-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-8-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-8-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-8-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-8-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-9-column-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-9-column-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-9-column-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/player/row-9-column-4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/pnj/bas1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/pnj/droite1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/pnj/gauche1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/pnj/haut1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/buisson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/earth.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/grass.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/herbe-motif-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/herbe-motif-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/mere-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/mere-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/mountains.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/mur-pierre-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/petit-buisson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/petite_espace_jaune.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/plante-type-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/plante-type-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/plante-type-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/sand.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/sky.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/terre.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/The2DGame/tiles/tree.png" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;samirarrous&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Lyes2003/The2DGame.git&quot;,
+    &quot;accountId&quot;: &quot;c443c287-e9eb-4c43-b88a-71411e625e66&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2vGfKvinDu0XOoI4tVTQhdMQZkE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Game.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2bee1d7a-e6e8-4995-ae11-5f8bd630385d" name="Changes" comment="" />
+      <created>1743776271771</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743776271771</updated>
+    </task>
+    <task id="LOCAL-00001" summary="lattack de tout les cotés mrebbeb">
+      <option name="closed" value="true" />
+      <created>1743778183282</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743778183282</updated>
+    </task>
+    <task id="LOCAL-00002" summary="killing pnjs">
+      <option name="closed" value="true" />
+      <created>1743783831766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743783831766</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lattack de tout les cotés mrebbeb" />
+    <MESSAGE value="killing pnjs" />
+    <option name="LAST_COMMIT_MESSAGE" value="killing pnjs" />
+  </component>
+</project>
