@@ -1,5 +1,7 @@
 package mainproject.entity;
 
+import mainproject.Drawable;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -8,7 +10,7 @@ import java.awt.image.BufferedImage;
  * Elle peut être héritée par des classes comme Player, PNJ, ennemis, etc.
  * Contient toutes les propriétés communes comme position, vitesse, direction, hitbox et animation.
  */
-public class Entity {
+public class Entity implements Drawable {
 
     /** Coordonnées de l'entité dans le monde (et non sur l'écran) */
     public int worldx, worldy;
@@ -49,4 +51,68 @@ public class Entity {
     /** Si true, l'entité est en collision avec une tuile ou un objet */
     public boolean collisionOn = false;
 
+    /**
+     * Dessine l'entité sur l'écran (implémentation de Drawable)
+     */
+    @Override
+    public void draw(Graphics2D g2) {
+        // Dessiner le sprite correspondant à la direction et au numéro de sprite actuel
+        BufferedImage imageToDraw = null;
+
+        switch (direction) {
+            case "haut":
+                switch (spriteNum) {
+                    case 1 -> imageToDraw = haut1;
+                    case 2 -> imageToDraw = haut2;
+                    case 3 -> imageToDraw = haut3;
+                    case 4 -> imageToDraw = haut4;
+                    case 5 -> imageToDraw = haut5;
+                    case 6 -> imageToDraw = haut6;
+                }
+                break;
+            case "bas":
+                switch (spriteNum) {
+                    case 1 -> imageToDraw = bas1;
+                    case 2 -> imageToDraw = bas2;
+                    case 3 -> imageToDraw = bas3;
+                    case 4 -> imageToDraw = bas4;
+                    case 5 -> imageToDraw = bas5;
+                    case 6 -> imageToDraw = bas6;
+                }
+                break;
+            case "gauche":
+                switch (spriteNum) {
+                    case 1 -> imageToDraw = gauche1;
+                    case 2 -> imageToDraw = gauche2;
+                    case 3 -> imageToDraw = gauche3;
+                    case 4 -> imageToDraw = gauche4;
+                    case 5 -> imageToDraw = gauche5;
+                    case 6 -> imageToDraw = gauche6;
+                }
+                break;
+            case "droite":
+                switch (spriteNum) {
+                    case 1 -> imageToDraw = droite1;
+                    case 2 -> imageToDraw = droite2;
+                    case 3 -> imageToDraw = droite3;
+                    case 4 -> imageToDraw = droite4;
+                    case 5 -> imageToDraw = droite5;
+                    case 6 -> imageToDraw = droite6;
+                }
+                break;
+        }
+
+        // Dessiner l'image sélectionnée à la position actuelle de l'entité
+        if (imageToDraw != null) {
+            g2.drawImage(imageToDraw, worldx, worldy, null);
+        }
+    }
+
+    /**
+     * Retourne la position verticale (worldY) de l'entité (implémentation de Drawable)
+     */
+    @Override
+    public int getWorldY() {
+        return worldy;
+    }
 }
